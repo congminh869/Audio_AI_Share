@@ -22,6 +22,8 @@ while True:
                     channels=channels,
                     rate=rate,
                     frames_per_buffer=chunk,
+                    input_device_index=1,
+                    output = False,
                     input=True)
 
     frames = [] 
