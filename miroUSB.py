@@ -3,17 +3,17 @@ import wave
 import datetime
 import time
 
-chunk = 2048  # Record in chunks of 1024 samples
+chunk = 4096  # Record in chunks of 4096 samples
 sample_format = pyaudio.paInt16  # 16 bits per sample
 print(sample_format)
 channels = 1
-rate = 8000  # Record at 44100 samples per second
+rate = 44100  # Record at 44100 samples per second
 seconds = 10
 while True:
     x = datetime.datetime.now()
     filename = "Room"+ x.strftime("%Y%m%d%H%M%S") + ".wav"
     
-    p = pyaudio.PyAudio()  # Create an interface to PortAudio
+    p = pyaudio.PyAudio() 
     print(filename)
     # help(p)
     print('Recording')
@@ -24,14 +24,12 @@ while True:
                     frames_per_buffer=chunk,
                     input=True)
 
-    frames = []  # Initialize array to store frames
+    frames = [] 
 
-    # Store data in chunks for 3 seconds
     for i in range(0, int(rate / chunk * seconds)):
         data = stream.read(chunk)
         frames.append(data)
 
-    # Stop and close the stream 
     stream.stop_stream()
     stream.close()
     # Terminate the PortAudio interface
